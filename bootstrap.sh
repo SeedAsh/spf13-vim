@@ -218,7 +218,7 @@ setup_fork_mode "$fork_maintainer" \
                 "$HOME"
 
 load_vim_plug
-setup_vim_plug
+setup_vim_plug "$APP_PATH/.vimrc.bundles.default"
 
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
