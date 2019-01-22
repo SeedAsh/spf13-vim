@@ -109,4 +109,3 @@
         source ~/.vimrc.before.local
     endif
 " }
-let g:spf13_bundle_groups=['general']

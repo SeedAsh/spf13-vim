@@ -113,7 +113,7 @@
             Plug 'tacahiroy/ctrlp-funky'
             Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
-            Plug 'vim-scripts/matchit.zip'
+            Plug 'vim-scripts/tmatchit.zip'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
@@ -133,7 +133,7 @@
                 Plug 'vim-scripts/restore_view.vim'
             endif
             Plug 'mhinz/vim-signify'
-            Plug 'tpope/vim-abolish.git'
+            Plug 'tpope/vim-abolish'
             Plug 'osyo-manga/vim-over'
             Plug 'kana/vim-textobj-user'
             Plug 'kana/vim-textobj-indent'
@@ -185,7 +185,7 @@
             Plug 'Shougo/neosnippet-snippets'
             Plug 'honza/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
-            Plug 'Shougo/neocomplete.vim.git'
+            Plug 'Shougo/neocomplete.vim'
             Plug 'Shougo/neosnippet'
             Plug 'Shougo/neosnippet-snippets'
             Plug 'honza/vim-snippets'
