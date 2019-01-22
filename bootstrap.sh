@@ -181,7 +181,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 }
 
 setup_vim_plug(){
-   
+	debug   
 }
 ############################ MAIN()
 variable_set "$HOME"
