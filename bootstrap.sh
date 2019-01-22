@@ -174,6 +174,15 @@ setup_vundle() {
     debug
 }
 
+
+load_vim_plug(){
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim	
+}
+
+setup_vim_plug(){
+   
+}
 ############################ MAIN()
 variable_set "$HOME"
 program_must_exist "vim"
@@ -195,12 +204,7 @@ setup_fork_mode "$fork_maintainer" \
                 "$APP_PATH" \
                 "$HOME"
 
-sync_repo       "$HOME/.vim/bundle/vundle" \
-                "$VUNDLE_URI" \
-                "master" \
-                "vundle"
-
-setup_vundle    "$APP_PATH/.vimrc.bundles.default"
+load_vim_plug
 
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
