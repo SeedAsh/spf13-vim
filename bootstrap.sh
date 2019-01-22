@@ -181,7 +181,20 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 }
 
 setup_vim_plug(){
-	debug   
+    local system_shell="$SHELL"
+    export SHELL='/bin/sh'
+
+    vim \
+        -u "$1" \
+        "+set nomore" \
+        "+PlugUpdate" \
+        "+PlugClean" \
+        "+qall"
+
+    export SHELL="$system_shell"
+
+    success "Now updating/installing plugins using vim-plug"
+    debug
 }
 ############################ MAIN()
 variable_set "$HOME"
@@ -205,6 +218,7 @@ setup_fork_mode "$fork_maintainer" \
                 "$HOME"
 
 load_vim_plug
+setup_vim_plug
 
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
