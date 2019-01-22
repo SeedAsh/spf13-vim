@@ -16,7 +16,7 @@
 
 ############################  SETUP PARAMETERS
 app_name='spf13-vim'
-[ -z "$APP_PATH" ] && APP_PATH="$HOME/.spf13-vim-3"
+[ -z "$APP_PATH" ] && APP_PATH="$HOME/.vim_set"
 [ -z "$REPO_URI" ] && REPO_URI='https://github.com/SeedAsh/spf13-vim.git'
 [ -z "$REPO_BRANCH" ] && REPO_BRANCH='3.0'
 debug_mode='0'
@@ -131,7 +131,8 @@ create_symlinks() {
         lnif "$source_path/.vimrc"     "$target_path/.config/nvim/init.vim"
     fi
 
-    touch  "$target_path/.vimrc.local"
+    #touch  "$target_path/.vimrc.local"
+    lnif "$source_path/.vimrc.local"           "$target_path/.vimrc.local"
 
     ret="$?"
     success "Setting up vim symlinks."
