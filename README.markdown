@@ -34,9 +34,9 @@ if just want to get a basic config
 curl -fLo ~/.vimrc \
     https://raw.githubusercontent.com/SeedAsh/spf13-vim/3.0/.vimrc.basic; \
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim; \
+vim "+set nomore" "+PlugUpdate" "+PlugClean" "+qall"
 ```
-and in vim ,type `:PlugInstall`
 
 *Requires Git 1.7+ and Vim 7.3+*
 If you have a bash-compatible shell you can run the script directly:
