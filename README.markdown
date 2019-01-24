@@ -36,6 +36,7 @@ curl -fLo ~/.vimrc \
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+and in vim ,type `:PlugInstall`
 *Requires Git 1.7+ and Vim 7.3+*
 If you have a bash-compatible shell you can run the script directly:
 ```bash
