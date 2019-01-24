@@ -1,0 +1,145 @@
+set nocompatible 
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " Syntax highlighting
+scriptencoding utf-8
+let mapleader=' '
+set hidden
+set number
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set history=1000                    " Store a ton of history (default is 20)
+set spell                           " Spell checking on
+set hidden                          " Allow buffer switching without saving
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
+set backup                  " Backups are nice ...
+if has('persistent_undo')
+    set undofile                " So is persistent undo ...
+    set undolevels=1000         " Maximum number of changes that can be undone
+    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+endif
+set smartindent
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set number                      " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+" Formatting {
+"set nowrap                      " Do not wrap long lines
+set autoindent                  " Indent at the same level of the previous line
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=4                   " An indentation every four columns
+set softtabstop=4               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current
+"set matchpairs+=<:>             " Match, to be used with %
+set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+"set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+" Remove trailing whitespaces and ^M chars
+" To disable the stripping of whitespace, add the following to your
+" .vimrc.before.local file:
+"   let g:spf13_keep_trailing_whitespace = 1
+"autocmd FileType go autocmd BufWritePre <buffer> Fmt
+autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+" preceding line best in a plugin but here for now.
+
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+
+" Workaround vim-commentary for Haskell
+autocmd FileType haskell setlocal commentstring=--\ %s
+" Workaround broken colour highlighting in Haskell
+autocmd FileType haskell,rust setlocal nospell
+
+" }
+
+
+
+nnoremap <Leader>ve :e $MYVIMRC<CR>
+autocmd BufWritePost $MYVIMRC  source $MYVIMRC
+
+
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>f :CtrlPMRU<CR>
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+            \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+            \ }
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Initialize plugin system
+call plug#end()
+
+colorscheme gruvbox
+set background=dark
+
+let laststatus = 2
+let g:airline_powerline_fonts = 1   " 使用powerline打过补丁的字体
+let g:airline_theme="dark"      " 设置主题
+
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
+map <C-H> <C-W>h<C-W>_
+map <C-E> :NERDTreeToggle<CR>
+"autocmd VimLeavePre * mksession ~/.vimsession
+
+function! CleverTab()
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        return "\<C-N>"
+    endif
+endfunction
+"inoremap <Tab> <C-R>=CleverTab()<CR>
+
+"noremap = exe('%normal ==')
+augroup autoindent
+    au!
+    autocmd BufWritePre * :normal migg=G`i
+augroup End
+
+autocmd FileType help wincmd L
+
+let g:spf13_no_autochdir = 1
+if !exists('g:spf13_no_autochdir')
+    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    " Always switch to the current file directory
+endif
