@@ -2,6 +2,7 @@ set nocompatible
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " Syntax highlighting
 scriptencoding utf-8
+set encoding=utf-8
 let mapleader=' '
 set hidden
 set number
