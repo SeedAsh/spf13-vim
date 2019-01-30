@@ -1,1 +1,5 @@
 color gruvbox
+
+
+set nobackup
+set nowritebackup
